@@ -19,15 +19,15 @@ lbls = c("CenDiaLg"="Centric diatoms Large",
 # FUNCTION TO MAKE FIGS ---------------------------------------------------
 
 copepodPlot <- function(df, df2, ylab, fname, logscale = TRUE){
-  
   p <- ggplot() +
-    geom_point(data = df, aes(x = taxaGroup, y = value, color = taxaGroup, shape = event, group = event), position = position_dodge(width = 1)) +
-    geom_point(data = df2, aes(x = taxaGroup, y = avg, shape = event, group = event), size = 3, position = position_dodge(width = 1), show.legend = FALSE) +
+    geom_point(data = df, aes(x = taxaGroup, y = value, color = taxaGroup, shape = event, group = event), position = position_dodge(width = 0.5)) +
+      geom_point(data = df2, aes(x = taxaGroup, y = avg, shape = event, group = event), size = 3, position = position_dodge(width = 0.5), show.legend = FALSE) +
     scale_shape_manual(values = shps, name = "Event") +
     scale_x_discrete(labels = str_wrap(lbls, width = 1)) +
     labs(x = "Taxa Group",
          y = ylab) +
     guides(color = FALSE) +
+    theme_classic() +
     theme(axis.title.y = element_markdown(), legend.title.align = 0.5)
   
   if(logscale) {
