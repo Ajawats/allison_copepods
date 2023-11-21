@@ -8,7 +8,7 @@ ingDat <- read_csv('data/IrTop5RepMns2.csv',
                       skip = 1,
                       col_names = c("event", "taxaGroup", "value"))
 
-clrDat <- read_csv('data/CR_Reps_Top5.csv',
+clrDat <- read_csv('data/CR_Reps_Top5_New.csv',
                    col_select = -c(3,4,5))
 
 clrDat <- rename(clrDat, "value" = "CRmlcd")

@@ -18,10 +18,10 @@ lbls = c("CenDiaLg"="Large centric diatoms ",
 
 # FUNCTION TO MAKE FIGS ---------------------------------------------------
 
-copepodPlot <- function(df, df2, ylab, plotname, filename, logscale = TRUE){
+copepodPlot <- function(reps, means, ylab, plotname, filename, logscale = TRUE){
   p <- ggplot() +
-    geom_point(data = df, aes(x = taxaGroup, y = value, color = taxaGroup, shape = event, group = event), position = position_dodge(width = 0.5)) +
-      geom_point(data = df2, aes(x = taxaGroup, y = avg, shape = event, group = event), size = 3, position = position_dodge(width = 0.5), show.legend = FALSE) +
+    geom_point(data = reps, aes(x = taxaGroup, y = value, color = taxaGroup, shape = event, group = event), position = position_dodge(width = 0.5)) +
+    geom_point(data = means, aes(x = taxaGroup, y = avg, shape = event, group = event), size = 3, position = position_dodge(width = 0.5), show.legend = FALSE) +
     scale_shape_manual(values = shps, name = "Event") +
     scale_color_brewer(palette = "Dark2") +
     scale_x_discrete(labels = str_wrap(lbls, width = 1)) +
@@ -29,7 +29,7 @@ copepodPlot <- function(df, df2, ylab, plotname, filename, logscale = TRUE){
          y = ylab) +
     guides(color = FALSE) +
     wimGraph() +
-    theme(axis.title.y = element_markdown(), legend.title.align = 0.5, plot.title = element_text(hjust=0.5), axis.text.x = element_text(color = brewer.pal(6, "Dark2")))
+    theme(axis.title.y = element_markdown(), legend.title.align = 0.5, plot.title = element_text(hjust=0.5))
   
   if(logscale) {
     p + scale_y_log10(labels = label_number())
@@ -37,7 +37,7 @@ copepodPlot <- function(df, df2, ylab, plotname, filename, logscale = TRUE){
     p
   }
   
-  ggsave(filename = filename, path = "figs/", scale = 2)
+  ggsave(filename = filename, path = "figs/", scale = 2, width = 5, units = "in")
 }
 
 
