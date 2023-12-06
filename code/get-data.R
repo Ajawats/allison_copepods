@@ -3,7 +3,7 @@ library(tidyverse)
 
 # READ DATA ---------------------------------------------------------------
 
-ingDat <- read_csv('data/IrTop5RepMns2.csv',
+ingDat <- read_csv('data/IrTop5RepsForJacksonPlot.csv',
                       col_select = 1:3,
                       skip = 1,
                       col_names = c("event", "taxaGroup", "value"))
