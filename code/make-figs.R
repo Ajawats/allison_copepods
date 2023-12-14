@@ -25,7 +25,7 @@ copepodPlot <- function(reps, means, ylab, plotname, filename, logscale = TRUE){
     geom_point(data = means, aes(x = taxaGroup, y = avg, shape = event, 
                                  group = event), size = 3, position = position_dodge(width = 0.5), stroke = 0.8,
                                 show.legend = FALSE) +
-    scale_shape_manual(values = shps, name = "Sampling Location") +
+    scale_shape_manual(values = shps, name = "Sampling Event") +
     scale_color_brewer(palette = "Dark2") +
     scale_x_discrete(labels = str_wrap(lbls, width = 1)) +
     labs(y = ylab, ) +

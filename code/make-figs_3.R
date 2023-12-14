@@ -1,4 +1,4 @@
-### Plot IR ONLY YBP2 large ciliates, SJR1 LSZ2 large centric diatoms
+### Plot IR no YBP2 large ciliates, SJR1 LSZ2 large centric diatoms
 ##  Remove x and y axis titles and 
 library(scales)
 library(ggtext)
@@ -10,9 +10,13 @@ source('wimGraph-and-Palettes.R')
 
 # DEFINE SCALES AND NAMES -------------------------------------------------
 
-shps = c("LSZ2"=0, "SJR1"=1, "SJR2"=2, "WLD2"=4, "YBP1"=5, "YBP2" = 6)
+shps = c("LSZ2"=0, "SJR1"=1, "SJR2"=5, "WLD2"=4, "YBP1"=2, "YBP2" = 6)
 lbls = c("CenDiaLg"="Large centric diatoms ",
-         "CilLg"="Large ciliates")
+         "CenDiaSm"="Small centric diatoms",
+         "CilLg"="Large ciliates",
+         "CilSm"="Small ciliates",
+         "FlagSm"="Small Flagellates",
+         "Other" = "Other Organisms")
 
 # FUNCTION TO MAKE FIGS ---------------------------------------------------
 
@@ -23,15 +27,14 @@ copepodPlot <- function(reps, means, ylab, plotname, filename, logscale = TRUE){
                position = position_dodge(width = 0.5)) +
     geom_point(data = means, aes(x = taxaGroup, y = avg, shape = event, group = event), 
                size = 3, position = position_dodge(width = 0.5), stroke = 0.9, show.legend = FALSE) +
-    scale_shape_manual(values = shps, name = "Sampling Location") +
+    scale_shape_manual(values = shps, name = "Sampling Event") +
     scale_color_brewer(palette = "Dark2") +
     scale_x_discrete(labels = str_wrap(lbls, width = 1)) +
-    scale_y_continuous(breaks = seq(0,6, by=1))+
     labs(x = NULL,
          y = NULL) +
     guides(color = FALSE) +
     wimGraph() +
-    theme(axis.title.y = element_markdown(), legend.position = "none", 
+    theme(axis.title.y = element_markdown(), legend.title.align =  0.5, 
          plot.title = element_text(hjust=0.5))
   
   if(logscale) {
@@ -49,7 +52,7 @@ copepodPlot <- function(reps, means, ylab, plotname, filename, logscale = TRUE){
 
 #ingYLab <- "\u03bcg C copepod<sup>-1</sup> day<sup>-1</sup>"
 
-copepodPlot(ingDatv3, ingMeans_v3, ingYLab, "Ingestion Rate", "ingestionV3.jpg", logscale = FALSE)
+copepodPlot(ingDatv2, ingMeans_v2, ingYLab, "Ingestion Rate", "ingestionV2.jpg", logscale = FALSE)
 
 
 

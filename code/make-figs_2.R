@@ -1,4 +1,4 @@
-### Plot IR no YBP2 large ciliates, SJR1 LSZ2 large centric diatoms
+### Plot IR ONLY YBP2 large ciliates, SJR1 LSZ2 large centric diatoms
 library(scales)
 library(ggtext)
 library(RColorBrewer)
