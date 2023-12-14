@@ -20,9 +20,9 @@ lbls = c("CenDiaLg"="Large centric diatoms ",
 
 copepodPlot <- function(reps, means, ylab, plotname, filename, logscale = TRUE){
   p <- ggplot() +
-    #geom_point(data = reps, aes(x = taxaGroup, y = value, color = taxaGroup, 
-                             #   shape = event, group = event), position = position_dodge(width = 0.9), stroke = 0.5) +
-    geom_point(data = means, aes(x = taxaGroup, y = value, shape = event, 
+    geom_point(data = reps, aes(x = taxaGroup, y = value, color = taxaGroup, 
+                                shape = event, group = event), position = position_dodge(width = 0.9), stroke = 0.5) +
+    geom_point(data = means, aes(x = taxaGroup, y = avg, shape = event, 
                                  group = event), size = 3, position = position_dodge(width = 0.5), stroke = 0.8,
                                 show.legend = FALSE) +
     scale_shape_manual(values = shps, name = "Sampling Location") +
@@ -32,8 +32,7 @@ copepodPlot <- function(reps, means, ylab, plotname, filename, logscale = TRUE){
     guides(color = FALSE) +
     wimGraph() +
     theme(axis.title.y = element_markdown(size = 10), legend.title.align = 0.5, 
-          plot.title = element_text(hjust=0.5), axis.title.x = element_blank())+
-    ggtitle("IR Means No YBP2 Cil Lg")
+          plot.title = element_text(hjust=0.5), axis.title.x = element_blank())
   
   if(logscale) {
     p + scale_y_log10(labels = label_number())
@@ -48,8 +47,8 @@ copepodPlot <- function(reps, means, ylab, plotname, filename, logscale = TRUE){
 # MAKE AND SAVE FIGS ------------------------------------------------------
 
 ingYLab <- "\u03bcg C copepod<sup> -1</sup> day<sup> -1</sup>"
-#clrYLab <- "mL copepod<sup> -1</sup> day<sup> -1</sup>"
+clrYLab <- "mL copepod<sup> -1</sup> day<sup> -1</sup>"
 
-#copepodPlot(ingDatNoYBP2CilLg, ingMnsNoYBP2CilLg, "Ingestion Rate", "ingestion_logscale.jpg")
-copepodPlot(ingDatMnsOnlyNoYBP2CilLg, ingYLab, "Ingestion Rate", "ingestion.jpg", logscale = FALSE)
-#copepodPlot(clrDat, clrMeans, clrYLab, "Clearance Rate", "clearance.jpg", logscale = FALSE)
+copepodPlot(ingDat, ingMeans, ingYLab, "Ingestion Rate", "ingestion_logscale.jpg")
+copepodPlot(ingDat, ingMeans, ingYLab, "Ingestion Rate", "ingestion.jpg", logscale = FALSE)
+copepodPlot(clrDat, clrMeans, clrYLab, "Clearance Rate", "clearance.jpg", logscale = FALSE)
