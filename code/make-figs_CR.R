@@ -1,3 +1,5 @@
+### Make figs for clearance rates, with same changes I made to IR plots, 
+##  make-figs_3.R  --name changed to make-figs_IR_main.R
 library(scales)
 library(ggtext)
 library(RColorBrewer)
@@ -21,20 +23,23 @@ lbls = c("CenDiaLg"="Large centric diatoms ",
 copepodPlot <- function(reps, means, ylab, plotname, filename, logscale = TRUE){
   p <- ggplot() +
     geom_point(data = reps, aes(x = taxaGroup, y = value, color = taxaGroup, 
-                                shape = event, group = event), size = 2.5, 
-               position = position_dodge(width = 0.9), stroke = 1) +
-    geom_point(data = means, aes(x = taxaGroup, y = avg, shape = event, 
-                                 group = event), size = 5, 
-               position = position_dodge(width = 0.5), stroke = 1.2,
-                                show.legend = FALSE) +
+                                shape = event, group = event), size = 2.5, stroke = 1.0, 
+               position = position_dodge(width = 0.5)) +
+    geom_point(data = means, aes(x = taxaGroup, y = avg, shape = event, group = event), 
+               size = 5, position = position_dodge(width = 0.5), stroke = 1.2, show.legend = FALSE) +
     scale_shape_manual(values = shps, name = "Sampling Event") +
     scale_color_brewer(palette = "Dark2") +
     scale_x_discrete(labels = str_wrap(lbls, width = 1)) +
-    labs(y = ylab, ) +
-    guides(color = FALSE) +
+    labs(x = NULL, y = ylab) +
+    guides(color = "none") +
     wimGraph() +
-    theme(axis.title.y = element_markdown(size = 10), legend.title.align = 0.5, 
-          plot.title = element_text(hjust=0.5), axis.title.x = element_blank())
+    theme(axis.title.y = element_markdown(size = 14), 
+          axis.text.x = element_text(size = 14),
+          legend.title.align =  0.5, 
+          legend.justification = "bottom", 
+          legend.text = element_text(size =12),
+          legend.title = element_text(size=14),
+          plot.title = element_text(hjust=0.5))
   
   if(logscale) {
     p + scale_y_log10(labels = label_number())
@@ -48,7 +53,7 @@ copepodPlot <- function(reps, means, ylab, plotname, filename, logscale = TRUE){
 
 # MAKE AND SAVE FIGS ------------------------------------------------------
 
-ingYLab <- "\u03bcg C copepod<sup> -1</sup> day<sup> -1</sup>"
+#ingYLab <- "\u03bcg C copepod<sup> -1</sup> day<sup> -1</sup>"
 clrYLab <- "mL copepod<sup> -1</sup> day<sup> -1</sup>"
 
 #copepodPlot(ingDat, ingMeans, ingYLab, "Ingestion Rate", "ingestion_logscale.jpg")
